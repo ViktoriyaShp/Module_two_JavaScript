@@ -1,22 +1,21 @@
 'use strict'
 
-const money = 50000;
+const oneNumber = Number.parseFloat(prompt('Введите первое число'));
+const twoNumber = Number.parseFloat(prompt('Введите второе число'));
 
-const profit = 'Фриланс';
+console.log(oneNumber, twoNumber);
 
-const expenses = `Квартплата, Питание, Бензин`;
+let result1 = oneNumber + twoNumber;
+console.log(`При сложении чисел: ${result1.toFixed(1)}`);
 
-const purpose = 100000;
+let result2 = oneNumber - twoNumber;
+console.log(`При вычитании чисел: ${result2.toFixed(1)}`);
 
-const period = 5;
+let result3 = oneNumber / twoNumber;
+console.log(`При делении чисел: ${result3.toFixed(1)}`);
 
-console.log(typeof money);
-console.log(typeof profit);
+let result4 = oneNumber * twoNumber;
+console.log(`При умножении чисел: ${result4.toFixed(1)}`);
 
-console.log(expenses.length);
-
-console.log(`Период равен ${period} месяцев`);
-console.log(`Цель заработать ${purpose} рублей`);
-
-const budgetDay = money / 30;
-console.log(`${ Math.floor(budgetDay) }`);
+let result5 = oneNumber % twoNumber;
+console.log(`Остаток от деления: ${result5.toFixed(1)}`);
