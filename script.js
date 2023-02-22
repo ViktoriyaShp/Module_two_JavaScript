@@ -13,10 +13,6 @@ function printDay(day, index) {
 
 days.forEach(printDay);
 
-// for (let i=0; i < days.length; i++) {
-//     printDay(i);
-// }
-
 let arr = ['42', '351543', '76534', '249', '318567', '7659', '565678'];
 console.log(arr);
 
