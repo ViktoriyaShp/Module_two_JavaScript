@@ -1,0 +1,14 @@
+.text{
+    margin: 20px;
+    font-size: 2em;
+    
+}
+
+.italic {
+    font-style: italic;
+    text-decoration: underline;
+}
+
+.bold {
+    font-weight: bold;
+}
