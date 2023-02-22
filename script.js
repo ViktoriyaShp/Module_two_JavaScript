@@ -1,41 +1,27 @@
 'use strict'
 
-const money = Number.parseFloat(prompt('Ваш месячный доход?')); 
-document.write(`Месячный доход ${money} ₽`);
+const days = ['Sunday', 'Monday', 'Tuesday ', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
-document.write("<br \/>");
+const weekendDayIndex = [0, 6];
+const currentDayIndex = new Date().getDay();
 
-const expenses = prompt('Перечислите возможные расходы за рассчитываемый период через запятую');
-document.write(`Расходы: ${expenses}`);
+function printDay(day, index) {
+    const classes =`text ${currentDayIndex === index ? 'italic' : ''} ${weekendDayIndex.includes(index) ? 'bold' : '' }`
 
-document.write("<br \/>");
+    document.writeln(`<div class='${classes}'> ${day} </div>`)
+}
 
-const amount = Number.parseFloat(prompt('Во сколько обойдуться обязательные статьи расходов?'));
-document.write(`Сумма расходов: ${amount} ₽`);
+days.forEach(printDay);
 
-document.write("<br \/>");
+// for (let i=0; i < days.length; i++) {
+//     printDay(i);
+// }
 
-const purpose = Number.parseFloat(prompt('Введите сумму которую желаете накопить?')); 
-document.write(`Целевая сумма: ${purpose} ₽`);
+let arr = ['42', '351543', '76534', '249', '318567', '7659', '565678'];
+console.log(arr);
 
-const deposit = confirm('Есть ли у вас вклад в банке?');
-console.log(deposit);
-
-const budgetMonth = money-amount;
-console.log(`Бюджет на месяц: ${budgetMonth} ₽`);
-
-const budgetDay = budgetMonth / 30;
-console.log(`Бюджет на день: ${ Math.floor(budgetDay) } ₽`);
-
-const period = purpose / budgetMonth;
-console.log(`Cрок накопления: ${ Math.ceil(period) } мес.`);
-
-    if (budgetDay > 6000){
-        console.log('У вас высокий уровень дохода');
-    } if (6000 > budgetDay > 3000){
-        console.log('У вас средний уровень дохода');
-    } if (3000 > budgetDay > 0){
-        console.log('К сожалению у вас уровень дохода ниже среднего');
-    } if (budgetDay < 0){
-        console.log('Что то пошло не так');
+for (let i = 0; i < 7; i++) {
+    if (arr[i].startsWith('3') || arr[i].startsWith('7')) {
+    console.log(arr[i]);
     }
+};
