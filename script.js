@@ -1,23 +1,57 @@
 'use strict'
 
-const days = ['Sunday', 'Monday', 'Tuesday ', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-
-const weekendDayIndex = [0, 6];
-const currentDayIndex = new Date().getDay();
-
-function printDay(day, index) {
-    const classes =`text ${currentDayIndex === index ? 'italic' : ''} ${weekendDayIndex.includes(index) ? 'bold' : '' }`
-
-    document.writeln(`<div class='${classes}'> ${day} </div>`)
+function print(text){
+    document.write(`<div>${text}</div>`);
 }
 
-days.forEach(printDay);
+const getAccumulatedIncome = (money, extraMoney, amount) => (money + extraMoney) - amount;
 
-let arr = ['42', '351543', '76534', '249', '318567', '7659', '565678'];
-console.log(arr);
+const getTargetMonth = (accumulatedIncome, purpose) => Math.ceil(purpose / accumulatedIncome);
 
-for (let i = 0; i < 7; i++) {
-    if (arr[i].startsWith('3') || arr[i].startsWith('7')) {
-    console.log(arr[i]);
+const monthToYear = (month) => {
+    if (month < 12) return `${month} месяцев`;
+    else {
+        const years = Math.floor(month / 12);
+        const monthRest = month - years * 12;
+
+        return `${years} лет и ${monthRest} месяцев`;
     }
+};
+
+const getBudgetPerDay = (accumulatedIncome) => Math.floor(accumulatedIncome / 30);
+
+const init = () => {
+const money = Number.parseFloat(prompt('Ваш месячный доход?')); 
+print(`Месячный доход ${money} ₽`);
+
+const extraMoney = Number.parseFloat(prompt('Ваш дополнительный доход?')); 
+print(`Дополнительный доход ${extraMoney} ₽`);
+
+const expenses = prompt('Перечислите возможные расходы за рассчитываемый период через запятую');
+print(`Расходы: ${expenses}`);
+
+const amount = Number.parseFloat(prompt('Во сколько обойдуться обязательные статьи расходов?'));
+print(`Сумма расходов: ${amount} ₽`);
+
+const purpose = Number.parseFloat(prompt('Введите сумму которую желаете накопить?')); 
+print(`Целевая сумма: ${purpose} ₽`);
+
+const accumulatedIncome = getAccumulatedIncome (money, extraMoney, amount);
+
+const targetMonth = getTargetMonth (accumulatedIncome, purpose);
+print(`Нужная сумма будет накоплена через ${monthToYear(targetMonth)}`);
+
+const budgetPerDay = getBudgetPerDay(accumulatedIncome);
+
+console.clear()
+
+if (budgetPerDay >= 6000){
+    print('У вас высокий уровень дохода');
+}  else if (budgetPerDay >= 3000 && budgetPerDay < 6000) {
+    print('У вас средний уровень дохода');
+} else if (budgetPerDay >= 0 && budgetPerDay < 3000) {
+    print('К сожалению у вас уровень дохода ниже среднего');
+} else if (budgetPerDay < 0) {
+    print('Что то пошло не так');
+}
 };
