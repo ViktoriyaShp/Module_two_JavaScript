@@ -1,57 +1,61 @@
 'use strict'
 
-function print(text){
-    document.write(`<div>${text}</div>`);
-}
+//генерируем случайное число из диапазона [0, 1]
+const getRandomNumber = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
 
-const getAccumulatedIncome = (money, extraMoney, amount) => (money + extraMoney) - amount;
-
-const getTargetMonth = (accumulatedIncome, purpose) => Math.ceil(purpose / accumulatedIncome);
-
-const monthToYear = (month) => {
-    if (month < 12) return `${month} месяцев`;
-    else {
-        const years = Math.floor(month / 12);
-        const monthRest = month - years * 12;
-
-        return `${years} лет и ${monthRest} месяцев`;
-    }
+//проверка форматa ответов в текстовом поле
+const validateAnswer = (answer) => {
+    if (answer === '') alert('Необходимо ввести число!');
+    else if (isNaN(answer)) alert('Введите число!');
+    else return true;
 };
 
-const getBudgetPerDay = (accumulatedIncome) => Math.floor(accumulatedIncome / 30);
+const start = () => {
+    const MIN_VALUE = 1;
+    const MAX_VALUE = 10;
+// //количество попыток
+    const ATTEMPTS_COUNT = 5;
 
-const init = () => {
-const money = Number.parseFloat(prompt('Ваш месячный доход?')); 
-print(`Месячный доход ${money} ₽`);
+    let attemptsLeft = ATTEMPTS_COUNT;
 
-const extraMoney = Number.parseFloat(prompt('Ваш дополнительный доход?')); 
-print(`Дополнительный доход ${extraMoney} ₽`);
+    const searchNumber = getRandomNumber(MIN_VALUE, MAX_VALUE);
+    console.log(searchNumber);
 
-const expenses = prompt('Перечислите возможные расходы за рассчитываемый период через запятую');
-print(`Расходы: ${expenses}`);
+    const loop = () => {
+        if (attemptsLeft === 0) {
+            const runAgain = confirm('Попытки кончились :( Хотите сыграть еще раз?');
+            //окно с текстом и кнопками «Ок» и «Отмена».
 
-const amount = Number.parseFloat(prompt('Во сколько обойдуться обязательные статьи расходов?'));
-print(`Сумма расходов: ${amount} ₽`);
+            if (runAgain) start ();
+            else alert('Игра окончена!');
+            return;
+        }
+        
+        // ответ пользователя
+        const userAnswer = prompt(`Компьютер загадал число от ${MIN_VALUE} до ${MAX_VALUE}. Ваша задача угадать его за ${attemptsLeft} попыток`);
+        
+        if (userAnswer === null) {
+            alert('Игра окончена!');
+            return;
+        }
 
-const purpose = Number.parseFloat(prompt('Введите сумму которую желаете накопить?')); 
-print(`Целевая сумма: ${purpose} ₽`);
+        if (validateAnswer(userAnswer)) {
+            const answer = Number.parseInt(userAnswer);
+            if (answer > searchNumber) {
+                attemptsLeft--;
+                alert(`Вы ввели число больше! Попыток осталось: ${attemptsLeft}`);
+                loop();
+            } else if (answer < searchNumber) {
+                attemptsLeft--;
+                alert(`Вы ввели число меньше! Попыток осталось: ${attemptsLeft}`);
+                loop();
+            } else if (answer === searchNumber) {
+                const runAgain = confirm(`Вы угадали с ${ATTEMPTS_COUNT - attemptsLeft + 1} раза! Хотите сыграть еще раз?`);
+                if (runAgain) start();
+                else alert('Игра окончена!');
+            }
+        } else loop();
+    };
 
-const accumulatedIncome = getAccumulatedIncome (money, extraMoney, amount);
-
-const targetMonth = getTargetMonth (accumulatedIncome, purpose);
-print(`Нужная сумма будет накоплена через ${monthToYear(targetMonth)}`);
-
-const budgetPerDay = getBudgetPerDay(accumulatedIncome);
-
-console.clear()
-
-if (budgetPerDay >= 6000){
-    print('У вас высокий уровень дохода');
-}  else if (budgetPerDay >= 3000 && budgetPerDay < 6000) {
-    print('У вас средний уровень дохода');
-} else if (budgetPerDay >= 0 && budgetPerDay < 3000) {
-    print('К сожалению у вас уровень дохода ниже среднего');
-} else if (budgetPerDay < 0) {
-    print('Что то пошло не так');
-}
+    loop();
 };
