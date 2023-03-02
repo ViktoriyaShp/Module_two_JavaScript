@@ -1,57 +1,33 @@
 'use strict'
 
-function print(text){
-    document.write(`<div>${text}</div>`);
-}
+let salaries = {
+    John: 100,
+    Ann: 160,
+    Pete: 130
+};
+//суммирование всех зарплат
+let sum = 0;
+for (let key in salaries) {
+    sum += salaries[key];
+};
 
-const getAccumulatedIncome = (money, extraMoney, amount) => (money + extraMoney) - amount;
+console.log(`Cуммa всех зарплат ${sum}`);
 
-const getTargetMonth = (accumulatedIncome, purpose) => Math.ceil(purpose / accumulatedIncome);
+let studentScores = {
+    Коля: '99',
+    Вася: '35',
+    Петя: '70',
+    Таня: '95',
+    Оля: '50',
+    Саша: '20'
+};
 
-const monthToYear = (month) => {
-    if (month < 12) return `${month} месяцев`;
-    else {
-        const years = Math.floor(month / 12);
-        const monthRest = month - years * 12;
-
-        return `${years} лет и ${monthRest} месяцев`;
+let key = 0;
+for (key in studentScores) {
+    if (+studentScores[key] < 80) {
+        console.log(`Студент ${key} не проходит отбор`);
+        delete studentScores[key];
     }
 };
 
-const getBudgetPerDay = (accumulatedIncome) => Math.floor(accumulatedIncome / 30);
-
-const init = () => {
-const money = Number.parseFloat(prompt('Ваш месячный доход?')); 
-print(`Месячный доход ${money} ₽`);
-
-const extraMoney = Number.parseFloat(prompt('Ваш дополнительный доход?')); 
-print(`Дополнительный доход ${extraMoney} ₽`);
-
-const expenses = prompt('Перечислите возможные расходы за рассчитываемый период через запятую');
-print(`Расходы: ${expenses}`);
-
-const amount = Number.parseFloat(prompt('Во сколько обойдуться обязательные статьи расходов?'));
-print(`Сумма расходов: ${amount} ₽`);
-
-const purpose = Number.parseFloat(prompt('Введите сумму которую желаете накопить?')); 
-print(`Целевая сумма: ${purpose} ₽`);
-
-const accumulatedIncome = getAccumulatedIncome (money, extraMoney, amount);
-
-const targetMonth = getTargetMonth (accumulatedIncome, purpose);
-print(`Нужная сумма будет накоплена через ${monthToYear(targetMonth)}`);
-
-const budgetPerDay = getBudgetPerDay(accumulatedIncome);
-
-console.clear()
-
-if (budgetPerDay >= 6000){
-    print('У вас высокий уровень дохода');
-}  else if (budgetPerDay >= 3000 && budgetPerDay < 6000) {
-    print('У вас средний уровень дохода');
-} else if (budgetPerDay >= 0 && budgetPerDay < 3000) {
-    print('К сожалению у вас уровень дохода ниже среднего');
-} else if (budgetPerDay < 0) {
-    print('Что то пошло не так');
-}
-};
+console.log(studentScores);
