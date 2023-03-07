@@ -21,29 +21,57 @@ const monthToYear = (month) => {
 const getBudgetPerDay = (accumulatedIncome) => Math.floor(accumulatedIncome / 30);
 
 const init = () => {
-const money = Number.parseFloat(prompt('Ваш месячный доход?')); 
+//Месячный доход
+let money = Number.parseFloat(prompt('Ваш месячный доход?'));
+
+while (isNaN(money)) { 
+    alert("Это не число"); 
+    money = Number.parseFloat(prompt('Ваш месячный доход?'));
+};
 print(`Месячный доход ${money} ₽`);
 
-const extraMoney = Number.parseFloat(prompt('Ваш дополнительный доход?')); 
+//Дополнительный доход
+let extraMoney = Number.parseFloat(prompt('Ваш дополнительный доход?')); 
+
+while (isNaN(extraMoney)) { 
+    alert("Это не число"); 
+    extraMoney = Number.parseFloat(prompt('Ваш дополнительный доход?'));
+};
 print(`Дополнительный доход ${extraMoney} ₽`);
 
-const expenses = prompt('Перечислите возможные расходы за рассчитываемый период через запятую');
+//Расходы
+let expenses = prompt('Перечислите возможные расходы за рассчитываемый период через запятую');
 print(`Расходы: ${expenses}`);
 
-const amount = Number.parseFloat(prompt('Во сколько обойдуться обязательные статьи расходов?'));
+//Сумма расходов
+let amount = Number.parseFloat(prompt('Во сколько обойдуться обязательные статьи расходов?'));
+
+while (isNaN(amount)) { 
+    alert("Это не число"); 
+    amount = Number.parseFloat(prompt('Во сколько обойдуться обязательные статьи расходов?'));
+};
 print(`Сумма расходов: ${amount} ₽`);
 
-const purpose = Number.parseFloat(prompt('Введите сумму которую желаете накопить?')); 
+//Целевая сумма
+let purpose = Number.parseFloat(prompt('Введите сумму которую желаете накопить?')); 
+
+while (isNaN(purpose)) { 
+    alert("Это не число"); 
+    purpose = Number.parseFloat(prompt('Введите сумму которую желаете накопить?'));
+};
 print(`Целевая сумма: ${purpose} ₽`);
 
 const accumulatedIncome = getAccumulatedIncome (money, extraMoney, amount);
 
 const targetMonth = getTargetMonth (accumulatedIncome, purpose);
-print(`Нужная сумма будет накоплена через ${monthToYear(targetMonth)}`);
+
+if (targetMonth > 0) {
+    print(`Нужная сумма будет накоплена через ${monthToYear(targetMonth)}`);
+} else if (targetMonth < 0) {
+    print(`Цель не будет достигнута`);
+};
 
 const budgetPerDay = getBudgetPerDay(accumulatedIncome);
-
-console.clear()
 
 if (budgetPerDay >= 6000){
     print('У вас высокий уровень дохода');
@@ -55,3 +83,4 @@ if (budgetPerDay >= 6000){
     print('Что то пошло не так');
 }
 };
+
