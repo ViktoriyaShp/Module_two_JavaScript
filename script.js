@@ -1,86 +1,59 @@
 'use strict'
 
-function print(text){
-    document.write(`<div>${text}</div>`);
-}
+let money = document.querySelector('#income');
+money.addEventListener('input', (e) => {money = Number.parseFloat(e.target.value);console.log(e.target.value);});
 
-const getAccumulatedIncome = (money, extraMoney, amount) => (money + extraMoney) - amount;
+let profit = document.querySelector('#additionalIncome');
+profit.addEventListener('input', (e) => {profit = String(e.target.value);console.log(e.target.value);});
 
-const getTargetMonth = (accumulatedIncome, purpose) => Math.ceil(purpose / accumulatedIncome);
+let extraMoney = document.querySelector('#sumAdditionalIncome');
+extraMoney.addEventListener('input', (e) => {extraMoney = Number.parseFloat(e.target.value);console.log(e.target.value);});
 
-const monthToYear = (month) => {
-    if (month < 12) return `${month} месяцев`;
-    else {
-        const years = Math.floor(month / 12);
-        const monthRest = month - years * 12;
+let expenses = document.querySelector('#expenses');
+expenses.addEventListener('input', (e) => {expenses = String(e.target.value);console.log(e.target.value);});
 
-        return `${years} лет и ${monthRest} месяцев`;
-    }
-};
+let amount = 10000 // расходы
 
-const getBudgetPerDay = (accumulatedIncome) => Math.floor(accumulatedIncome / 30);
+let purpose = document.querySelector('#savings');
+purpose.addEventListener('input', (e) => {purpose = Number.parseFloat(e.target.value);console.log(e.target.value);});
 
-const init = () => {
-//Месячный доход
-let money = Number.parseFloat(prompt('Ваш месячный доход?'));
+let period = document.querySelector('#period');
+period.addEventListener('input', (e) => {period = Number.parseFloat(e.target.value);console.log(e.target.value);});
 
-while (isNaN(money)) { 
-    alert("Это не число"); 
-    money = Number.parseFloat(prompt('Ваш месячный доход?'));
-};
-print(`Месячный доход ${money} ₽`);
+let deposit = true
 
-//Дополнительный доход
-let extraMoney = Number.parseFloat(prompt('Ваш дополнительный доход?')); 
+btn.addEventListener('click',(e) => {
+  
+let getAccumulatedIncome = (money, extraMoney, amount) => (money  + extraMoney) - amount;
 
-while (isNaN(extraMoney)) { 
-    alert("Это не число"); 
-    extraMoney = Number.parseFloat(prompt('Ваш дополнительный доход?'));
-};
-print(`Дополнительный доход ${extraMoney} ₽`);
 
-//Расходы
-let expenses = prompt('Перечислите возможные расходы за рассчитываемый период через запятую');
-print(`Расходы: ${expenses}`);
+let getTargetMonth = (accumulatedIncome, purpose) => Math.ceil(purpose  / accumulatedIncome);
 
-//Сумма расходов
-let amount = Number.parseFloat(prompt('Во сколько обойдуться обязательные статьи расходов?'));
+let getBudgetPerDay = (accumulatedIncome) => Math.floor(accumulatedIncome  / 30);
+// document.getElementById('sumMoneyDay').innerHTML = getBudgetPerDay;
 
-while (isNaN(amount)) { 
-    alert("Это не число"); 
-    amount = Number.parseFloat(prompt('Во сколько обойдуться обязательные статьи расходов?'));
-};
-print(`Сумма расходов: ${amount} ₽`);
+let accumulatedIncome = getAccumulatedIncome (money, extraMoney, amount);
+document.getElementById('sumMoney').innerHTML = accumulatedIncome;
 
-//Целевая сумма
-let purpose = Number.parseFloat(prompt('Введите сумму которую желаете накопить?')); 
+let targetMonth = getTargetMonth (accumulatedIncome, purpose);
+document.getElementById('purpose').innerHTML = targetMonth;
 
-while (isNaN(purpose)) { 
-    alert("Это не число"); 
-    purpose = Number.parseFloat(prompt('Введите сумму которую желаете накопить?'));
-};
-print(`Целевая сумма: ${purpose} ₽`);
+let budgetPerDay = getBudgetPerDay(accumulatedIncome);
+document.getElementById('sumMoneyDay').innerHTML = budgetPerDay;
 
-const accumulatedIncome = getAccumulatedIncome (money, extraMoney, amount);
-
-const targetMonth = getTargetMonth (accumulatedIncome, purpose);
-
-if (targetMonth > 0) {
-    print(`Нужная сумма будет накоплена через ${monthToYear(targetMonth)}`);
-} else if (targetMonth < 0) {
-    print(`Цель не будет достигнута`);
-};
-
-const budgetPerDay = getBudgetPerDay(accumulatedIncome);
+document.getElementById('sumMoneyPurpose').innerHTML = purpose;
 
 if (budgetPerDay >= 6000){
-    print('У вас высокий уровень дохода');
+    document.getElementById("incomeLevel").textContent = 'У вас высокий уровень дохода';
 }  else if (budgetPerDay >= 3000 && budgetPerDay < 6000) {
-    print('У вас средний уровень дохода');
+    document.getElementById("incomeLevel").textContent = 'У вас средний уровень дохода';
 } else if (budgetPerDay >= 0 && budgetPerDay < 3000) {
-    print('К сожалению у вас уровень дохода ниже среднего');
+  document.getElementById("incomeLevel").textContent = 'К сожалению у вас уровень дохода ниже среднего';
 } else if (budgetPerDay < 0) {
-    print('Что то пошло не так');
-}
+  document.getElementById("incomeLevel").textContent = 'Что то пошло не так';
 };
 
+  console.log('Ваш бюджет на месяц с учетом ваших расходов составляет: ', accumulatedIncome);
+  console.log(`Ваша цель накопить ${purpose} с учетом всех ваших расходов будет достигнута через`, targetMonth + ' месяца');
+  console.log('Дневной бюджет', budgetPerDay);
+});
