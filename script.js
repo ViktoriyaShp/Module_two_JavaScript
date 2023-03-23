@@ -1,59 +1,116 @@
-'use strict'
+// 'use strict'
+// console.log('-----------');
+// console.log('-----Варинт № 1-----');
+// console.log('-----------');
 
-let money = document.querySelector('#income');
-money.addEventListener('input', (e) => {money = Number.parseFloat(e.target.value);console.log(e.target.value);});
+// // Получение данных
+// let post = fetch('https://reqres.in/api/users?per_page=12');
+// post.then((response) => {
+//   return response.json()
+// }).then((result) => {
+//   console.log('result', result);
 
-let profit = document.querySelector('#additionalIncome');
-profit.addEventListener('input', (e) => {profit = String(e.target.value);console.log(e.target.value);});
+//   console.log('-----------');
+//   console.log('-----Фамилии всех пользователей-----');
+//   console.log('-----------');
 
-let extraMoney = document.querySelector('#sumAdditionalIncome');
-extraMoney.addEventListener('input', (e) => {extraMoney = Number.parseFloat(e.target.value);console.log(e.target.value);});
+// //Фамилии всех пользователей
+//   result.data.forEach(element => {
+//     console.log(element.last_name)
+//   }); 
 
-let expenses = document.querySelector('#expenses');
-expenses.addEventListener('input', (e) => {expenses = String(e.target.value);console.log(e.target.value);});
+//   console.log('-----------');
+//   console.log('-----Данные пользователей, фамилия которых начинается на F-----');
+//   console.log('-----------');
 
-let amount = 10000 // расходы
+// // Данные пользователей, фамилия которых начинается на F
+//   result.data.filter(item=>item.last_name.startsWith('F')).forEach(element => {
+//     console.log(`Имя: ${element.first_name}`); 
+//     console.log(`Фамилия: ${element.last_name}`); 
+//     console.log(`Почта: ${element.email}`); 
+//     console.log(`ID: ${element.id}`); 
+//     console.log(`Аватар: ${element.avatar}`);
+//   });
 
-let purpose = document.querySelector('#savings');
-purpose.addEventListener('input', (e) => {purpose = Number.parseFloat(e.target.value);console.log(e.target.value);});
+// // Метод reduce
+//   console.log('-----------');
+//   console.log('-----Метод reduce-----');
+//   console.log('-----------');
 
-let period = document.querySelector('#period');
-period.addEventListener('input', (e) => {period = Number.parseFloat(e.target.value);console.log(e.target.value);});
-
-let deposit = true
-
-btn.addEventListener('click',(e) => {
+//   console.log(result.data.reduce((acc, item) => acc + item.first_name + " " + item.last_name +', ', "Наша база содержит данные следующих пользователей:"));
   
-let getAccumulatedIncome = (money, extraMoney, amount) => (money  + extraMoney) - amount;
+//   console.log('-----------');
+//   console.log('-----Ключи каждого пользователя-----');
+//   console.log('-----------');
 
+// // Ключи каждого пользователя 
+//   Object.keys(result).forEach(element=>
+//     console.log(element)
+//   );
 
-let getTargetMonth = (accumulatedIncome, purpose) => Math.ceil(purpose  / accumulatedIncome);
+// });
 
-let getBudgetPerDay = (accumulatedIncome) => Math.floor(accumulatedIncome  / 30);
-// document.getElementById('sumMoneyDay').innerHTML = getBudgetPerDay;
+// console.log('post', post);
 
-let accumulatedIncome = getAccumulatedIncome (money, extraMoney, amount);
-document.getElementById('sumMoney').innerHTML = accumulatedIncome;
+console.log('-----------');
+console.log('-----Варинт № 2-----');
+console.log('-----------');
 
-let targetMonth = getTargetMonth (accumulatedIncome, purpose);
-document.getElementById('purpose').innerHTML = targetMonth;
+// Получение данных
+const getUsers = () => {
+  const url = 'https://reqres.in/api/users?per_page=12';
 
-let budgetPerDay = getBudgetPerDay(accumulatedIncome);
-document.getElementById('sumMoneyDay').innerHTML = budgetPerDay;
+  return fetch(url)
+    .then(response => response.json())
+}
 
-document.getElementById('sumMoneyPurpose').innerHTML = purpose;
+// //Фамилии всех пользователей
+const printSurnames = (users) => {
+  users.forEach(({last_name: surname}) => console.log(surname))
+  
+  return users
+}
 
-if (budgetPerDay >= 6000){
-    document.getElementById("incomeLevel").textContent = 'У вас высокий уровень дохода';
-}  else if (budgetPerDay >= 3000 && budgetPerDay < 6000) {
-    document.getElementById("incomeLevel").textContent = 'У вас средний уровень дохода';
-} else if (budgetPerDay >= 0 && budgetPerDay < 3000) {
-  document.getElementById("incomeLevel").textContent = 'К сожалению у вас уровень дохода ниже среднего';
-} else if (budgetPerDay < 0) {
-  document.getElementById("incomeLevel").textContent = 'Что то пошло не так';
-};
+// Данные пользователей, фамилия которых начинается на F
+const printUserWithSurnameStartsF = (users) => {
+  users.filter(({last_name: surname}) => surname.startsWith('F'))
+    .forEach(user => console.log(user))
+  
+  return users
+}
 
-  console.log('Ваш бюджет на месяц с учетом ваших расходов составляет: ', accumulatedIncome);
-  console.log(`Ваша цель накопить ${purpose} с учетом всех ваших расходов будет достигнута через`, targetMonth + ' месяца');
-  console.log('Дневной бюджет', budgetPerDay);
-});
+const printDatabase = (users) => {
+  const result = users.map(({first_name: name, last_name: surname}) => `${surname} ${name}`)
+    .join(', ');
+
+  console.log(`Наша база содержит данные следующих пользователей: ${result}`)
+
+    return users[0]
+}
+// Метод reduce
+// const printDatabase = (users) => {
+//   const result = users.reduce((string, {first_name, last_name}) =>{
+//     return string.concat(`${surname} ${name}, `)
+
+//   }, 'Наша база содержит данные следующих пользователей: ')
+//     .trimEnd()
+//     .slice(0, -1)
+
+//     console.log(result);
+
+//     return users[0]
+
+// }
+
+// Ключи каждого пользователя
+const printKeys = (user) => {
+  Object.keys(user).forEach(key => console.log(key))
+}
+
+//Вывод данных
+getUsers()
+    .then(({data: users}) => users)
+    .then(printSurnames)
+    .then(printUserWithSurnameStartsF)
+    .then(printDatabase)
+    .then(printKeys)
