@@ -1,30 +1,196 @@
-* {
-  box-sizing: border-box;
+body {
+	background-color:#1B2473;
+	font-family: 'Roboto', sans-serif;
+	font-style: normal;
+	font-weight: 700;
 }
 
-.calculator {
-  display: flex;
-  justify-content: center;
-  padding-top: 100px;
+/* Заголовок */
+
+.link {
+	display: flex;
+	justify-content: flex-end;
+	padding: 11px 11px;
+	text-decoration: none;
+	font-size: 14px;
+	line-height: 16px;
+	color: #1A226B;
 }
 
-.calculator__items {
-  padding-right: 30px;
+.login-form {
+	position: relative;
+	margin: 0 auto;
+	background: #FFFFFF;
+	box-shadow: 0px 0px 40px 10px rgba(0, 0, 0, 0.25);
+	border-radius: 20px;
+	z-index: 1;
+	display: block;
+	margin: 82px auto 0 auto;
+	width: 600px;
+	height: 412px;
 }
 
-.calculator__items-submit {
-  margin-top: 40px;
-  padding: 10px 20px;
-  cursor: pointer;
+.login-form__header {
+	font-size: 50px;
+	line-height: 50px;
+	color: #787878;
+	text-align: center;
 }
 
-.calculator__result {
-  border: 1px solid;
-  width: 30%;
-  padding: 30px;
+.login-form__email {
+	margin: 17px 45px 0px;
+	z-index: 1;
 }
 
-.item__result {
-  font-size: 21px;
-  font-weight: 800;
+.login-form__password {
+	margin: 13px 45px 0px;
+	z-index: 1;
 }
+
+#email-input, #password-input {
+	width: 100%;
+	height: 49px;
+	font-size: 28px;
+	color: #787878;
+	padding-left: 15px;
+	border: 2px solid #787878;
+	box-sizing: border-box;
+	border-radius: 10px;
+}
+
+#email-input::placeholder, #password-input::placeholder {
+	color: #ccc;
+}
+
+label {
+	margin: auto 0 auto 18px;
+	color: #787878;
+}
+
+.login-form__checkbox {
+	margin: 16px 45px 0 45px;
+	cursor: pointer;
+}
+
+#checkbox-input {
+	position: absolute;
+	width: 24px;
+	height: 24px;
+	opacity: 0;
+	font-size: 10px;
+	cursor: pointer;
+}
+
+#label-checkbox {
+    cursor: pointer;
+}
+
+.login-form__email-wrapper p {
+	font-size: 18px;
+	margin: 4px 4px auto auto;
+	color: #787878;
+}
+
+.login-form__password-wrapper p {
+	font-size: 18px;
+	margin: 4px 4px auto auto;
+	color: #787878;
+}
+
+/* checkbox */
+
+.login-form__checkbox-wrapper p {
+	font-size: 18px;
+	margin: 4px 4px auto auto;
+	color: #787878;
+}
+
+.form__custom-checkbox {
+	width: 24px;
+	height: 24px;
+	border: 2px solid #787878;
+	border-radius: 7px;
+	margin-right: 2px;
+}
+
+
+.login-form__checkbox_input:checked + .form__custom-checkbox {
+	background: #787878;
+}
+
+.login-form__checkbox_input:checked + .form__custom-checkbox::after {
+	content: '✓';
+	color: #FFFFFF;
+	font-size: 18px;
+	margin-left: 5px;
+}
+
+.mandatory-field {
+	color: red;
+	margin: auto auto auto 18px;
+	font-size: 10px;
+	display: none;
+	line-height: 10px;
+}
+
+.flex-class-checkbox {
+	display: flex;
+}
+
+.login-form__email-invalid {
+	color: red;
+	font-size: 10px;
+	display: none;
+}
+
+.login-form__password-length {
+	color: red;
+	font-size: 10px;
+	display: none;
+}
+
+.error-message {
+	position: absolute;
+	top: 0;
+	left: 0;
+	opacity: 0;
+	color: white;
+	font-size: 50px;
+	z-index: -99;
+}
+
+/* кнопка */
+
+.button-wrapper {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	margin: auto auto 26px auto;
+	text-align: center;
+}
+
+.button-wrapper_btn {
+	background: #1A226B;
+	border-radius: 10px;
+	color: #FFFFFF;
+	line-height: 16px;
+	width: 240px;
+	height: 48px;
+	font-size: 24px;
+	cursor: pointer;
+}
+
+/* gradient */
+
+.button-wrapper_btn {
+  background-image: linear-gradient(to bottom, #1A226B, rgb(46, 37, 220));
+  border-color: #1A226B;
+  background-size: 100% 200%;
+  background-position: top;
+  transition: background-position .5s ease-out;
+  }
+  
+  .button-wrapper_btn:hover {
+  background-position: bottom;
+  }

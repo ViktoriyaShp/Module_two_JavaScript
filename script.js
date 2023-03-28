@@ -1,59 +1,133 @@
 'use strict'
 
-let money = document.querySelector('#income');
-money.addEventListener('input', (e) => {money = Number.parseFloat(e.target.value);console.log(e.target.value);});
+//Проверка email на валидность с помощью регулярного выражения
+function validateEmail(email) {
+    const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(String(email).toLowerCase());
+}
+// const onInputUsernameHandler = ({target}) => {
+//     const {value} = target;
 
-let profit = document.querySelector('#additionalIncome');
-profit.addEventListener('input', (e) => {profit = String(e.target.value);console.log(e.target.value);});
+//     const inputWrapperElement = document.querySelector('.input-wrapper_one')
 
-let extraMoney = document.querySelector('#sumAdditionalIncome');
-extraMoney.addEventListener('input', (e) => {extraMoney = Number.parseFloat(e.target.value);console.log(e.target.value);});
+//     if (!validateEmail(value)) inputWrapperElement.classList.add('error-boxone')
+//     else inputWrapperElement.classList.remove('error-boxone')
+// };
 
-let expenses = document.querySelector('#expenses');
-expenses.addEventListener('input', (e) => {expenses = String(e.target.value);console.log(e.target.value);});
+// const onInputUsername = ({target}) => {
+//     const {value} = target;
 
-let amount = 10000 // расходы
+//     const inputWrapperElement = document.querySelector('.input-wrapper_two')
 
-let purpose = document.querySelector('#savings');
-purpose.addEventListener('input', (e) => {purpose = Number.parseFloat(e.target.value);console.log(e.target.value);});
+//     if (value.length > 0 && value.length < 8 ) inputWrapperElement.classList.add('error-boxtwo')
+//     else inputWrapperElement.classList.remove('error-boxtwo')
+// };
 
-let period = document.querySelector('#period');
-period.addEventListener('input', (e) => {period = Number.parseFloat(e.target.value);console.log(e.target.value);});
+// function myFunction(id,pid) {
+//     var checkBox = document.getElementById(id);
+//     var text = document.getElementById(pid);
+//     if (checkBox.checked == true) {
+//         text.style.display = "none";
+//     } else {
+//         text.style.display = "block";
+//     }
+// }
 
-let deposit = true
+const inputEmail = document.getElementById('email-input');
+const inputPassword = document.getElementById('password-input');
+const inputCheckbox = document.getElementById('checkbox-input');
+const inputCheckboxCustom = document.getElementById('custom-checkbox');
 
-btn.addEventListener('click',(e) => {
-  
-let getAccumulatedIncome = (money, extraMoney, amount) => (money  + extraMoney) - amount;
+const emailMandatory = document.getElementById('email-mandatory');
+const passwordMandatory = document.getElementById('password-mandatory');
+const checkboxMandatory = document.getElementById('checkbox-mandatory');
 
+const checkboxLogin = document.getElementById('login-form-checkbox');
 
-let getTargetMonth = (accumulatedIncome, purpose) => Math.ceil(purpose  / accumulatedIncome);
+const starEmail = document.getElementById('star-email');
+const starPassword = document.getElementById('star-password');
+const starCheckbox = document.getElementById('star-checkbox');
 
-let getBudgetPerDay = (accumulatedIncome) => Math.floor(accumulatedIncome  / 30);
-// document.getElementById('sumMoneyDay').innerHTML = getBudgetPerDay;
+const labelEmail = document.getElementById('label-email');
+const labelPassword = document.getElementById('label-password');
 
-let accumulatedIncome = getAccumulatedIncome (money, extraMoney, amount);
-document.getElementById('sumMoney').innerHTML = accumulatedIncome;
+const invalidEmail = document.getElementById('email-invalid');
 
-let targetMonth = getTargetMonth (accumulatedIncome, purpose);
-document.getElementById('purpose').innerHTML = targetMonth;
+const lengthPassword = document.getElementById('password-length');
 
-let budgetPerDay = getBudgetPerDay(accumulatedIncome);
-document.getElementById('sumMoneyDay').innerHTML = budgetPerDay;
+const button = document.querySelector('.button-wrapper_btn');
 
-document.getElementById('sumMoneyPurpose').innerHTML = purpose;
+//Проверка введенных данных в поле “Email”
 
-if (budgetPerDay >= 6000){
-    document.getElementById("incomeLevel").textContent = 'У вас высокий уровень дохода';
-}  else if (budgetPerDay >= 3000 && budgetPerDay < 6000) {
-    document.getElementById("incomeLevel").textContent = 'У вас средний уровень дохода';
-} else if (budgetPerDay >= 0 && budgetPerDay < 3000) {
-  document.getElementById("incomeLevel").textContent = 'К сожалению у вас уровень дохода ниже среднего';
-} else if (budgetPerDay < 0) {
-  document.getElementById("incomeLevel").textContent = 'Что то пошло не так';
-};
+button.addEventListener('click', (event) => {
+    emailMandatory.style.display = 'none';
+    invalidEmail.style.display = 'none';
+    passwordMandatory.style.display = 'none';
+    lengthPassword.style.display = 'none';
+    checkboxMandatory.style.display = 'none';
 
-  console.log('Ваш бюджет на месяц с учетом ваших расходов составляет: ', accumulatedIncome);
-  console.log(`Ваша цель накопить ${purpose} с учетом всех ваших расходов будет достигнута через`, targetMonth + ' месяца');
-  console.log('Дневной бюджет', budgetPerDay);
+    let emailBool = false;
+
+	if (inputEmail.value === '' || validateEmail(inputEmail.value) === false) {
+		inputEmail.style.border = "	2px solid red";
+		starEmail.style.color = 'red';
+		labelEmail.style.color = 'red';
+		if (inputEmail.value === '') {
+			emailMandatory.style.display = 'contents';
+		} else if (validateEmail(inputEmail.value) === false) {
+			invalidEmail.style.display = 'contents';
+		}
+		emailBool = false;
+	} else {
+		inputEmail.style.border = "2px solid #787878";
+		starEmail.style.color = '#787878';
+		labelEmail.style.color = '#787878';
+		emailMandatory.style.display = 'none';
+		invalidEmail.style.display = 'none';
+		emailBool = true;
+	}
+//Проверка введенных данных в поле “Пароль” 
+    let passwordBool = false;
+
+	if (inputPassword.value === '' || inputPassword.value.length < 8) {
+		inputPassword.style.border = "2px solid red";
+		if (inputPassword.value === '') {
+			passwordMandatory.style.display = 'contents';
+		} else if (inputPassword.value.length < 8) {
+			lengthPassword.style.display = 'contents';
+		} 
+		starPassword.style.color = 'red';
+		labelPassword.style.color = 'red';
+		checkboxLogin.style.margin = '6px 45px 0 45px';
+		passwordBool = false;
+	} else {
+		inputPassword.style.border = "2px solid #787878";
+		passwordMandatory.style.display = 'none';
+		lengthPassword.style.displsy = 'none';
+		starPassword.style.color = '#787878';
+		labelPassword.style.color = '#787878'
+		checkboxLogin.style.margin = '16px 45px 0 45px';
+		passwordBool = true;
+	}
+//Проверка чекбокса
+    let checkboxBool = false;
+
+	if (document.getElementById('checkbox-input').checked === false) {
+		inputCheckboxCustom.style.border = "2px solid red";
+		starCheckbox.style.color = 'red';
+		checkboxMandatory.style.display = 'contents';
+		checkboxBool = false;
+	} else {
+		inputCheckboxCustom.style.border = "2px solid #787878";
+		starCheckbox.style.color = '#787878';
+		checkboxMandatory.style.display = 'none';
+		checkboxBool = true;
+	}
+//Вывод данных в консоль
+	if (emailBool && passwordBool && checkboxBool) {
+		console.log(`Email:${inputEmail.value}`)
+        console.log(`Password:${inputPassword.value}`)
+	}
+    
+	event.preventDefault();
 });
