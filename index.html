@@ -4,64 +4,55 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>Регистрация</title>
   <link rel="stylesheet" href="style.css">
+  <link rel="" href="home.html">
 </head>
 <body>
+  <div class="login-form">
+    <a href="./login.html" class="link">Войти</a>
+<div class="login-form__header">
+  Регистрация
+</div>
 
-  <div class="calculator">
-    <div class="calculator__items">
-      <div class="">
-        <h2>Ваш месячный доход?</h2>
-        <input placeholder="Введите сумму" type="text" id="income">
-      </div>
-
-      <div class="">
-        <h2>Перечислите какие у вас дополнительные доходы через запятую?</h2>
-        <input placeholder="Фриланс, курьер и тд" type="text" id="additionalIncome">
-      </div>
-
-      <div class="">
-        <h2>Какая сумма дополнительных доходов?</h2>
-        <input placeholder="Введите сумму" type="text" id="sumAdditionalIncome">
-      </div>
-
-      <div class="">
-        <h2>Ваши обязательные расходы перечислите через запятую?</h2>
-        <input placeholder="проезд, коммуналка и тд" type="text" id="expenses">
-      </div>
-
-      <div class="">
-        <h2>Какую сумму вы бы хотели накопить?</h2>
-        <input placeholder="Введите сумму" type="text" id="savings">
-      </div>
-
-      <div class="">
-        <h2>За какой период вы бы хотели накопить желаемую сумму?</h2>
-        <input placeholder="Укажите кол-во месяцев" type="text" id="period">
-      </div>
-
-      <button class="calculator__items-submit" id="btn">Рассчитать</button>
-    </div>
-
-    <div class="calculator__result">
-      <div class="calculator__result-item item">
-        Ваш бюджет на месяц с учетом ваших расходов составляет: <span class="item__result" id="sumMoney"></span>
-      </div>
-
-      <div class="calculator__result-item item">
-        Ваш дневной бюджет: <span class="item__result" id="sumMoneyDay"></span>
-      </div>
-
-      <div class="calculator__result-item item">
-        Ваша цель накопить <span class="item__result" id="sumMoneyPurpose"></span> с учетом всех ваших расходов будет достигнута через <span class="item__result" id="purpose"></span> месяцев
-      </div>
-
-      <div class="calculator__result-item item">
-        <span class="item__result" id="incomeLevel"></span> 
-      </div>
-    </div>
+<div class="login-form__email">
+  <label for="email-input" id="label-email">Email</label> <br/>
+  <div class="login-form__email-wrapper" style="display: flex">
+    <p id='star-email'>*</p>
+    <input type="email" id="email-input" placeholder="Введите Email">
   </div>
+  <div class="login-form__email mandatory-field" id="email-mandatory">Поле обязательно для заполнения</div>
+  <div class="login-form__email-invalid" id="email-invalid">Некорректный email</div>
+</div>
+
+<div class="login-form__password">
+  <label for="password-input" id="label-password">Пароль</label> <br/>
+  <div class="login-form__password-wrapper" style="display: flex">
+    <p id='star-password'>*</p>
+    <input type="password" id="password-input" placeholder="Введите пароль">
+  </div>
+  <div class="login-form__password mandatory-field" id="password-mandatory">Поле обязательно для заполнения</div>
+  <div class="login-form__password-length" id="password-length">Пароль должен содержать минимум 8 символов</div>
+</div>
+
+<div class="login-form__checkbox" id="login-form-checkbox">
+  <div class="flex-class-checkbox">
+  <div class="login-form__checkbox-wrapper" style="display: flex">
+    <p id="star-checkbox">*</p>
+    <input class="login-form__checkbox_input" type="checkbox" id="checkbox-input">
+    <div class="form__custom-checkbox" id="custom-checkbox"></div>
+  </div>
+  <label for="checkbox-input" id="label-checkbox">Я согласен получать обновления на почту</label>
+  </div>
+  <div class="login-form__checkbox mandatory-field" id="checkbox-mandatory">Поле обязательно для заполнения</div>
+</div>
+
+<div class="button-wrapper">
+  <button id = "btn" class="button-wrapper_btn" onclick="signUp()">
+      Зарегистрироваться
+  </button>
+</div>
+</div>
   
   <script src="./script.js"></script>
 </body>

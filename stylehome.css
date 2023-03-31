@@ -1,0 +1,38 @@
+.button {
+    position: absolute;
+	left: 0;
+	right: 0;
+	text-align: center;
+    top: 170px;
+}
+
+.button-wrapper {
+    background: #1A226B;
+	border-radius: 10px;
+	color: #FFFFFF;
+	line-height: 16px;
+	width: 170px;
+	height: 48px;
+	font-size: 24px;
+	cursor: pointer;
+}
+
+.button-wrapper {
+    background-image: linear-gradient(to bottom, #1A226B, rgb(46, 37, 220));
+    border-color: #1A226B;
+    background-size: 100% 200%;
+    background-position: top;
+    transition: background-position .5s ease-out;
+}
+
+.button-wrapper:hover {
+    background-position: bottom;
+}
+
+
+p {
+    font-size: 50px;
+	line-height: 50px;
+	color: #787878;
+	text-align: center;
+}
